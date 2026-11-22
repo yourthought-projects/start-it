@@ -1,0 +1,26 @@
+# Herramientas IA / Contexto
+repomix-output.*
+.aider*
+
+# Sistema Operativo
+*~
+.directory
+.Trash-*
+.DS_Store
+Thumbs.db
+
+# Editores / IDEs
+.vscode/
+.cursor/
+.idea/
+*.swp
+*.swo
+
+# Entorno y logs
+.env
+.env.*
+*.log
+
+# Dependencias / Build (opcional a futuro)
+node_modules/
+dist/
