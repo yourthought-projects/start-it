@@ -1,0 +1,226 @@
+/* --- VARIABLES DE DISEÑO --- */
+:root {
+    /* Colores extraídos de tu logo */
+    --bg-color: #0d1117; /* Fondo oscuro tipo GitHub */
+    --surface-color: #161b22; /* Fondo de tarjetas */
+    --text-main: #e6edf3;
+    --text-muted: #8b949e;
+    
+    /* Degradado de tu logo */
+    --brand-blue: #0055ff;
+    --brand-cyan: #00e5ff;
+    --brand-green: #00ff88;
+    --gradient: linear-gradient(90deg, var(--brand-blue), var(--brand-cyan), var(--brand-green));
+}
+
+/* --- RESET Y ESTILOS BÁSICOS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background-color: rgba(13, 17, 23, 0.9);
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid #30363d;
+}
+
+.nav-logo {
+    height: 90px; /* Ajusta según el tamaño de tu logo */
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a:hover {
+    color: var(--brand-cyan);
+}
+
+.btn-outline {
+    border: 1px solid var(--brand-cyan);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background-color: var(--brand-cyan);
+    color: var(--bg-color);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5rem 5%;
+    min-height: 80vh;
+    gap: 2rem;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary {
+    background: var(--gradient);
+    color: #000; /* Texto negro para contrastar con el neón */
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+}
+
+.btn-secondary {
+    background-color: var(--surface-color);
+    border: 1px solid #30363d;
+}
+
+.btn-secondary:hover {
+    background-color: #21262d;
+    transform: translateY(-2px);
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.main-icon {
+    max-width: 400px; /* Tamaño máximo del icono */
+    width: 100%;
+    height: auto;
+    animation: float 6s ease-in-out infinite; /* Animación flotante suave */
+}
+
+/* --- SECCIÓN DE PILARES (TARJETAS) --- */
+.pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 4rem 5%;
+}
+
+.card {
+    background-color: var(--surface-color);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.card:hover {
+    border-color: var(--brand-cyan);
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.card p {
+    color: var(--text-muted);
+}
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    border-top: 1px solid #30363d;
+    font-size: 0.9rem;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* --- DISEÑO RESPONSIVO (MÓVILES) --- */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 3rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        margin: 0 auto 2rem auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+}
