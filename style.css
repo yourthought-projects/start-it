@@ -1,16 +1,22 @@
 /* --- VARIABLES DE DISEÑO --- */
 :root {
-    /* Colores extraídos de tu logo */
-    --bg-color: #0d1117; /* Fondo oscuro tipo GitHub */
-    --surface-color: #161b22; /* Fondo de tarjetas */
-    --text-main: #e6edf3;
-    --text-muted: #8b949e;
+    /* Fondo base más profundo para que resalte el neón */
+    --bg-base: #050811; 
     
-    /* Degradado de tu logo */
+    /* Colores de tu logo */
     --brand-blue: #0055ff;
     --brand-cyan: #00e5ff;
     --brand-green: #00ff88;
-    --gradient: linear-gradient(90deg, var(--brand-blue), var(--brand-cyan), var(--brand-green));
+    --gradient: linear-gradient(135deg, var(--brand-blue), var(--brand-cyan), var(--brand-green));
+    
+    /* Textos */
+    --text-main: #ffffff;
+    --text-muted: #a0aec0;
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* --- RESET Y ESTILOS BÁSICOS --- */
@@ -22,9 +28,15 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
+    background-color: var(--bg-base);
     color: var(--text-main);
     line-height: 1.6;
+    overflow-x: hidden;
+    /* Luces ambientales sutiles en el fondo general */
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 85, 255, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 20%);
+    background-attachment: fixed;
 }
 
 a {
@@ -38,16 +50,17 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 5%;
-    background-color: rgba(13, 17, 23, 0.9);
+    background: rgba(5, 8, 17, 0.7);
     position: sticky;
     top: 0;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px); /* Efecto cristal en la navbar */
+    -webkit-backdrop-filter: blur(12px);
     z-index: 1000;
-    border-bottom: 1px solid #30363d;
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .nav-logo {
-    height: 90px; /* Ajusta según el tamaño de tu logo */
+    height: 80px;
 }
 
 .nav-links {
@@ -64,13 +77,14 @@ a {
 .btn-outline {
     border: 1px solid var(--brand-cyan);
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all 0.3s;
 }
 
 .btn-outline:hover {
     background-color: var(--brand-cyan);
-    color: var(--bg-color);
+    color: var(--bg-base);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
 }
 
 /* --- HERO SECTION --- */
@@ -78,20 +92,23 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5rem 5%;
-    min-height: 80vh;
+    padding: 6rem 5%;
+    min-height: 85vh;
     gap: 2rem;
+    position: relative;
 }
 
 .hero-content {
     flex: 1;
+    z-index: 2;
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.5rem;
+    letter-spacing: -1px;
 }
 
 .gradient-text {
@@ -114,69 +131,103 @@ a {
 }
 
 .btn-primary, .btn-secondary {
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1.8rem;
     border-radius: 8px;
     font-weight: 700;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .btn-primary {
     background: var(--gradient);
-    color: #000; /* Texto negro para contrastar con el neón */
+    color: #000; 
+    border: none;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 229, 255, 0.4);
 }
 
 .btn-secondary {
-    background-color: var(--surface-color);
-    border: 1px solid #30363d;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-    background-color: #21262d;
+    background: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
 }
 
+/* --- ICONO Y GRADIENT MESH --- */
 .hero-image {
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* La malla de gradientes detrás del icono */
+.gradient-mesh {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    /* Combinación de colores de tu logo en forma de esferas */
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(0, 229, 255, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 70% 50%, rgba(0, 255, 136, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(0, 85, 255, 0.6) 0%, transparent 50%);
+    filter: blur(60px); /* Desenfoque extremo para crear la malla */
+    z-index: -1;
+    animation: pulseMesh 8s infinite alternate;
 }
 
 .main-icon {
-    max-width: 400px; /* Tamaño máximo del icono */
+    max-width: 450px;
     width: 100%;
     height: auto;
-    animation: float 6s ease-in-out infinite; /* Animación flotante suave */
+    position: relative;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+    /* Sombra paralela para separar el icono del fondo */
+    filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.5)); 
 }
 
-/* --- SECCIÓN DE PILARES (TARJETAS) --- */
+/* --- SECCIÓN DE PILARES (GLASSMORPHISM) --- */
 .pillars {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding: 4rem 5%;
+    position: relative;
+    z-index: 2;
 }
 
-.card {
-    background-color: var(--surface-color);
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px); /* El desenfoque del vidrio */
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
     padding: 2.5rem;
-    border-radius: 12px;
-    border: 1px solid #30363d;
-    transition: border-color 0.3s, transform 0.3s;
+    border-radius: 20px;
+    transition: all 0.4s ease;
 }
 
-.card:hover {
-    border-color: var(--brand-cyan);
-    transform: translateY(-5px);
+.glass:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(0, 229, 255, 0.4); /* Borde cian al hacer hover */
+    box-shadow: 0 15px 35px rgba(0, 229, 255, 0.1);
 }
 
 .card h2 {
     margin-bottom: 1rem;
     font-size: 1.5rem;
+    color: #fff;
 }
 
 .card p {
@@ -186,34 +237,35 @@ a {
 /* --- FOOTER --- */
 footer {
     text-align: center;
-    padding: 2rem;
+    padding: 3rem 2rem;
     color: var(--text-muted);
-    border-top: 1px solid #30363d;
+    border-top: 1px solid var(--glass-border);
     font-size: 0.9rem;
+    margin-top: 2rem;
 }
 
 /* --- ANIMACIONES --- */
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-20px); }
     100% { transform: translateY(0px); }
 }
 
+@keyframes pulseMesh {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+    100% { transform: scale(1.1) rotate(10deg); opacity: 1; }
+}
+
 /* --- DISEÑO RESPONSIVO (MÓVILES) --- */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
+@media (max-width: 900px) {
     .hero {
         flex-direction: column;
         text-align: center;
-        padding-top: 3rem;
+        padding-top: 4rem;
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
 
     .hero-subtitle {
@@ -222,5 +274,23 @@ footer {
 
     .hero-buttons {
         justify-content: center;
+    }
+
+    .gradient-mesh {
+        width: 300px;
+        height: 300px;
+    }
+
+    .main-icon {
+        max-width: 250px;
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
     }
 }
